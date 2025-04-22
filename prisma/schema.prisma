@@ -10,7 +10,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL")
 }
 
 model User {
@@ -40,13 +41,13 @@ model Pixel {
 }
 
 model Purchase {
-  id           String   @id @default(cuid())
+  id           String    @id @default(cuid())
   userId       String
   pixelCount   Int
   totalAmount  Float
-  stripeId     String   @unique
-  status       String   @default("pending")
-  coordinates  Json     // Массив координат купленных пикселей
-  createdAt    DateTime @default(now())
+  stripeId     String    @unique
+  status       String    @default("pending")
+  coordinates  Json      // Массив координат купленных пикселей
+  createdAt    DateTime  @default(now())
   completedAt  DateTime?
 }
