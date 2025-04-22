@@ -13,26 +13,6 @@ export default function PixelSelector() {
   const [selectedPixels, setSelectedPixels] = useState<SelectedPixel[]>([])
   const [isSelecting, setIsSelecting] = useState(false)
 
-  const handlePixelSelect = (x: number, y: number) => {
-    if (!session) {
-      // Перенаправляем на страницу входа, если пользователь не авторизован
-      window.location.href = '/auth/signin'
-      return
-    }
-
-    const pixelIndex = selectedPixels.findIndex(
-      (pixel) => pixel.x === x && pixel.y === y
-    )
-
-    if (pixelIndex === -1) {
-      setSelectedPixels([...selectedPixels, { x, y }])
-    } else {
-      const newSelectedPixels = [...selectedPixels]
-      newSelectedPixels.splice(pixelIndex, 1)
-      setSelectedPixels(newSelectedPixels)
-    }
-  }
-
   const handlePurchase = async () => {
     if (!session || selectedPixels.length === 0) return
 

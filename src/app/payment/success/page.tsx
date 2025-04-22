@@ -8,12 +8,12 @@ export default function PaymentSuccessPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   useEffect(() => {
     const sessionId = searchParams.get('session_id')
     if (!sessionId) {
-      setError('Идентификатор сессии не найден')
+      setErrorMessage('Идентификатор сессии не найден')
       setIsLoading(false)
       return
     }
@@ -34,8 +34,8 @@ export default function PaymentSuccessPage() {
 
         // Перенаправляем на страницу выбора цвета
         router.push('/payment/color-select')
-      } catch (error) {
-        setError('Произошла ошибка при проверке платежа')
+      } catch (err) {
+        setErrorMessage('Произошла ошибка при проверке платежа')
       } finally {
         setIsLoading(false)
       }
@@ -55,7 +55,7 @@ export default function PaymentSuccessPage() {
     )
   }
 
-  if (error) {
+  if (errorMessage) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -63,7 +63,7 @@ export default function PaymentSuccessPage() {
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
             Произошла ошибка
           </h1>
-          <p className="text-gray-600">{error}</p>
+          <p className="text-gray-600">{errorMessage}</p>
           <button
             onClick={() => router.push('/')}
             className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
