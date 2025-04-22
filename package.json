@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.9.0",
     "@prisma/client": "^6.6.0",
     "@stripe/stripe-js": "^7.2.0",
     "next": "15.3.1",
