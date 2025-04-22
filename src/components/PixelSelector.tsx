@@ -13,6 +13,18 @@ export default function PixelSelector() {
   const [selectedPixels, setSelectedPixels] = useState<SelectedPixel[]>([])
   const [isSelecting, setIsSelecting] = useState(false)
 
+  const togglePixelSelection = (x: number, y: number) => {
+    if (!isSelecting) return
+
+    setSelectedPixels(prev => {
+      const exists = prev.some(p => p.x === x && p.y === y)
+      if (exists) {
+        return prev.filter(p => !(p.x === x && p.y === y))
+      }
+      return [...prev, { x, y }]
+    })
+  }
+
   const handlePurchase = async () => {
     if (!session || selectedPixels.length === 0) return
 
@@ -46,7 +58,12 @@ export default function PixelSelector() {
                 ? 'bg-blue-600 text-white'
                 : 'bg-gray-100 text-gray-700'
             }`}
-            onClick={() => setIsSelecting(!isSelecting)}
+            onClick={() => {
+              setIsSelecting(!isSelecting)
+              if (!isSelecting) {
+                setSelectedPixels([])
+              }
+            }}
           >
             {isSelecting ? 'Отменить выбор' : 'Выбрать пиксели'}
           </button>

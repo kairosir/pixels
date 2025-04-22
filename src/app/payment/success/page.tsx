@@ -34,7 +34,7 @@ export default function PaymentSuccessPage() {
 
         // Перенаправляем на страницу выбора цвета
         router.push('/payment/color-select')
-      } catch (err) {
+      } catch {
         setErrorMessage('Произошла ошибка при проверке платежа')
       } finally {
         setIsLoading(false)
